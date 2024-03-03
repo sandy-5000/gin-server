@@ -1,6 +1,7 @@
 package database
 
 import (
+	"gend.com/gind/model"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -23,6 +24,10 @@ func Init(url string, database string) error {
 	client = client_
 
 	Products = client.Database(database).Collection("products")
+    err = (&model.Product{}).CreateIndexes(Products)
+    if err != nil {
+        return err
+    }
 
 	err = client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Err()
 	return err
