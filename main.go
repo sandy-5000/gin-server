@@ -38,6 +38,7 @@ func main() {
 	})
 
 	r.GET("/products", handler.GetProduct)
+	r.GET("/products/:name", handler.GetProductByName)
 	r.POST("/products", handler.AddProduct)
 	
 	r.Run()
